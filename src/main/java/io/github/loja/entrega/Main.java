@@ -1,6 +1,8 @@
 package io.github.loja.entrega;
 
 import io.github.loja.entrega.service.DeliveryAreaChecker;
+import io.github.loja.entrega.strategy.DeliveryAreaStrategy;
+import io.github.loja.entrega.strategy.StateDeliveryStrategy;
 
 public class Main {
     public static void main(String[] args) {
@@ -10,8 +12,14 @@ public class Main {
         }
 
         String cep = args[0];
-        DeliveryAreaChecker checker = new DeliveryAreaChecker();
+        DeliveryAreaStrategy strategy = new StateDeliveryStrategy("SP", "RJ", "MG"); // Estados com entrega
+        DeliveryAreaChecker checker = new DeliveryAreaChecker(strategy);
+
         boolean entrega = checker.isWithinDeliveryArea(cep);
-        System.out.println("Entrega no CEP " + cep + ": " + (entrega ? "Sim" : "Não"));
+        if (entrega) {
+            System.out.println("Entregamos no CEP " + cep);
+        } else {
+            System.out.println("Não entregamos no CEP " + cep);
+        }
     }
 }
