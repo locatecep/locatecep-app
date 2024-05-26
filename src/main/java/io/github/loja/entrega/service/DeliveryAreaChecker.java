@@ -4,23 +4,24 @@ import io.github.locatecep.model.Cep;
 import io.github.locatecep.service.CepService;
 import io.github.locatecep.repository.CepRepository;
 import io.github.locatecep.repository.DatabaseCepRepository;
+import io.github.loja.entrega.strategy.DeliveryAreaStrategy;
 
 public class DeliveryAreaChecker {
-    private CepService cepService;
+    private final CepService cepService;
+    private final DeliveryAreaStrategy deliveryAreaStrategy;
 
-    public DeliveryAreaChecker() {
+    public DeliveryAreaChecker(DeliveryAreaStrategy deliveryAreaStrategy) {
         CepRepository repository = new DatabaseCepRepository();
         this.cepService = new CepService(repository);
+        this.deliveryAreaStrategy = deliveryAreaStrategy;
     }
 
     public boolean isWithinDeliveryArea(String cep) {
         try {
             Cep cepInfo = cepService.buscar(cep);
-            // Lógica para verificar se o CEP está na área de entrega
-            // TODO Criar lógica real para verificar se o CEP está na área de entrega
-            return cepInfo.getUf().equals("SP"); // Exemplo: entrega apenas em SP
+            return deliveryAreaStrategy.isWithinDeliveryArea(cepInfo);
         } catch (Exception e) {
-            return false; // CEP não encontrado ou erro na consulta
+            return false;
         }
     }
 }
