@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"io.github.loja.entrega.service","l":"DeliveryAreaChecker"},{"p":"io.github.loja.entrega.strategy","l":"DeliveryAreaStrategy"},{"p":"io.github.loja.entrega","l":"Main"},{"p":"io.github.loja.entrega.strategy","l":"StateDeliveryStrategy"}];updateSearchResults();
